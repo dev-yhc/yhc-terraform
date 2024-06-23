@@ -7,7 +7,7 @@ include {
 }
 
 inputs = {
-  name            = "test"
+  name            = "yhc-dev-an2-vpc"
   cidr            = "10.2.0.0/16"
   azs             = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c", "ap-northeast-2d"]
   public_subnets  = ["10.2.0.0/20", "10.2.16.0/20", "10.2.32.0/20", "10.2.112.0/20"]
