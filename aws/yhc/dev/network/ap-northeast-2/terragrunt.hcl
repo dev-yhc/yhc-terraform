@@ -11,8 +11,8 @@ terraform {
     arguments = [
       "-var", "aws_region=ap-northeast-2",
       "-var", "aws_profile=dev-yhc",
-      "-var", "sg_remote_backend_bucket_key=tfstate/yhc/dev/Network/ap-northeast-2/sg/terraform.tfstate",
-      "-var", "vpc_remote_backend_bucket_key=tfstate/yhc/dev/Network/ap-northeast-2/vpc/terraform.tfstate",
+      "-var", "sg_remote_backend_bucket_key=tfstate/yhc/dev/network/ap-northeast-2/sg/terraform.tfstate",
+      "-var", "vpc_remote_backend_bucket_key=tfstate/yhc/dev/network/ap-northeast-2/vpc/terraform.tfstate",
       "-var", "org_prefix_list_remote_backend_bucket_key=tfstate/Management/mgmt/network/ap-northeast-2/prefix_list/terraform.tfstate",
       "-var", "remote_backend_bucket=yhc-global-tf-state",
       "-var", "remote_backend_bucket_region=ap-northeast-2",
