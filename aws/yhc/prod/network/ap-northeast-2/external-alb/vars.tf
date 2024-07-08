@@ -4,7 +4,7 @@
 variable "tags" {
   default = {
     Duty    = "admin"
-    Stack   = "dev"
+    Stack   = "prod"
     Role    = "external-alb"
     Product = "yhc"
     Managed = "Terraform"
