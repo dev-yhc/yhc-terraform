@@ -1,8 +1,17 @@
-####################
-# Data Root Zone
-####################
+provider "aws" {
+  region = "ap-northeast-2"
+}
 
+module "zones" {
+    source = "../../../../../modules/zones"
 
-####################
-# Public Zone
-####################
+    # private zone should have specific vpc
+    zones = {
+        "example.com" = {
+            comment = "example.com",
+            tags = {
+                name = "example.com"
+            }
+        }
+    }
+}
