@@ -33,9 +33,8 @@ inputs = {
   })
 
   tags = {
-    Stack   = "prod"
-    Role    = "network"
-    Product = "yhc"
-    Managed = "terraform"
+    stack   = "prod"
+    role    = "network"
+    managed = "terraform"
   }
 }
