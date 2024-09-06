@@ -1,17 +1,12 @@
-provider "aws" {
-  region = "ap-northeast-2"
-}
+resource "aws_route53_zone" "pulling_in" {
+  name    = "pulling.in"
+  comment = "Managed by Terraform"
+  force_destroy       = false
 
-module "zones" {
-    source = "../../../../../modules/zones"
 
-    # private zone should have specific vpc
-    zones = {
-        "example.com" = {
-            comment = "example.com",
-            tags = {
-                name = "example.com"
-            }
-        }
-    }
+  tags = {
+    stack   = "prod"
+    product = "pulling"
+    managed = "terraform"
+  }
 }
