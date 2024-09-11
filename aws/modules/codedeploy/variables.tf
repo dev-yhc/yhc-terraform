@@ -37,12 +37,6 @@ variable "auto_rollback_configuration" {
   default     = {}
 }
 
-# variable "ec2_tag_set" {
-#   description = "ec2_tag_set"
-#   type        = map(string)
-#   default     = {}
-# }
-
 variable "ec2_tag_set" {
   type = list(list(object({
     key   = string
