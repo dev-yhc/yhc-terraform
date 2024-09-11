@@ -31,20 +31,23 @@ variable "deployment_config_name" {
   default = null
 }
 
-variable "autoscaling_groups" {
-  description = "autoscaling groups"
-  type = list(string)
-  default = []
-}
-
 variable "auto_rollback_configuration" {
   description = "auto_rollback_configuration"
   type        = map(string)
   default     = {}
 }
 
+# variable "ec2_tag_set" {
+#   description = "ec2_tag_set"
+#   type        = map(string)
+#   default     = {}
+# }
+
 variable "ec2_tag_set" {
-  description = "ec2_tag_set"
-  type        = map(string)
-  default     = {}
+  type = list(list(object({
+    key   = string
+    type  = string
+    value = string
+  })))
+  default = []
 }
