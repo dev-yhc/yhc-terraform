@@ -21,6 +21,8 @@ inputs = {
     ]
   ]
 
+  data_bucket_name = "clip-codedeploy-archive"
+
   tags = {
     stack   = "prod"
     role    = "network"
