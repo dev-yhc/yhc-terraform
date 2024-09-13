@@ -3,6 +3,15 @@ module "single_instance" {
   name = "pulling_single_instance"
   instance_type = "t2.small"
   subnet_id = data.terraform_remote_state.vpc.outputs.public_subnets_id_by_az["ap-northeast-2a"]
+  # IAM 인스턴스 프로파일 생성
+  create_iam_instance_profile = true
+  iam_role_name               = "codedeploy-ec2-role"
+  iam_role_description        = "IAM role for EC2 instance to work with CodeDeploy"
+
+  # CodeDeploy 정책 연결
+  iam_role_policies = {
+    AmazonEC2RoleforAWSCodeDeploy = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
+  }
 
   user_data = <<-EOF
               #!/bin/bash
@@ -52,6 +61,7 @@ module "single_instance" {
 #   eip_domain = data.terraform_remote_state.vpc.id
 
   tags = {
+    name = "clip"
     stack   = "prod"
     product = "pulling"
     managed = "terraform"
