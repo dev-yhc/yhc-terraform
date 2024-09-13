@@ -59,8 +59,13 @@ module "single_instance" {
   # eip
   ######
 
-#   create_eip = true
-#   eip_domain = data.terraform_remote_state.vpc.id
+  create_eip = true
+  eip_domain = "vpc"
+
+  eip_tags = {
+    name = "eip_for_clip_single_instance"
+  }
+
 
   tags = {
     name = "clip"
