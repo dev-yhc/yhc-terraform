@@ -42,17 +42,33 @@ module "single_instance" {
               ./install auto
               service codedeploy-agent start
 
-              # Get and install Let's Encrypt certificate
+              # Install Certbot
               amazon-linux-extras install epel -y
               yum install -y certbot python2-certbot-nginx
 
-              certbot --nginx -d api.pulling.in --non-interactive --agree-tos --email hyunchul.yang@gmail.com
-
-              # Set up auto-renewal
-              echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
+              # Create the Nginx configuration file for the domain
+              cat <<EOT > /etc/nginx/conf.d/api.pulling.in.conf
+              server {
+                  listen 80;
+                  server_name api.pulling.in;
+                  location / {
+                      proxy_pass http://localhost:8080;
+                      proxy_set_header Host \$host;
+                      proxy_set_header X-Real-IP \$remote_addr;
+                      proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                      proxy_set_header X-Forwarded-Proto \$scheme;
+                  }
+              }
+              EOT
 
               # Restart NGINX to apply changes
               systemctl restart nginx
+
+              # Set up a cron job to attempt SSL certificate issuance every 5 minutes
+              echo "*/5 * * * * root certbot --nginx -d api.pulling.in --non-interactive --agree-tos --email hyunchul.yang@gmail.com || true" | sudo tee -a /etc/crontab > /dev/null
+
+              # Set up auto-renewal
+              echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
               EOF
 
   ######
@@ -65,7 +81,6 @@ module "single_instance" {
   eip_tags = {
     name = "eip_for_clip_single_instance"
   }
-
 
   tags = {
     name = "clip"
