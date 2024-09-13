@@ -1,7 +1,9 @@
 module "single_instance" {
   source = "../../../../modules/ec2"
   name = "pulling_single_instance"
-  instance_type = "t2.small"
+
+  ami_ssm_parameter = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-arm64-gp2"
+  instance_type = "t4g.small"
   subnet_id = data.terraform_remote_state.vpc.outputs.public_subnets_id_by_az["ap-northeast-2a"]
   # IAM 인스턴스 프로파일 생성
   create_iam_instance_profile = true
@@ -25,9 +27,9 @@ module "single_instance" {
 
               # Install GraalVM Java 21
               cd /tmp
-              wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.0.0/graalvm-ce-java21-linux-amd64-21.0.0.tar.gz
-              tar -xzf graalvm-ce-java21-linux-amd64-21.0.0.tar.gz
-              mv graalvm-ce-java21-21.0.0 /usr/lib/graalvm
+              wget https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-aarch64_bin.tar.gz
+              tar -xzf graalvm-community-jdk-21.0.2_linux-aarch64_bin.tar.gz
+              mv graalvm-community-openjdk-21.0.2+13.1 /usr/lib/graalvm
               echo 'export PATH=/usr/lib/graalvm/bin:$PATH' >> /etc/profile
               echo 'export JAVA_HOME=/usr/lib/graalvm' >> /etc/profile
               source /etc/profile
