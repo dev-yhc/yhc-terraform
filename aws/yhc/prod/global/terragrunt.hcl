@@ -25,7 +25,7 @@ remote_state {
   backend = "s3"
   config = {
     bucket = "yhc-global-tf-state"
-    key = "tfstate/yhc/prod/network/ap-northeast-2/${path_relative_to_include()}/terraform.tfstate"
+    key = "tfstate/yhc/prod/global/ap-northeast-2/${path_relative_to_include()}/terraform.tfstate"
     region = "ap-northeast-2"
     encrypt = true
     // can lock via dynamodb

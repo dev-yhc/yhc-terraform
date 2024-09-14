@@ -89,3 +89,12 @@ module "single_instance" {
     managed = "terraform"
   }
 }
+
+resource "aws_route53_record" "api-pulling-in" {
+  name = "api.pulling.in"
+  type = "A"
+  zone_id = data.terraform_remote_state.pullingin_domain.outputs.zone_id
+  ttl = 300
+  // FIXME
+  records = [module.single_instance.public_ip]
+}

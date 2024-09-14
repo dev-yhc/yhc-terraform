@@ -6,7 +6,7 @@ resource "aws_route53_zone" "pulling_in" {
 
   tags = {
     stack   = "prod"
-    product = "pulling"
+    product = "pulling_in"
     managed = "terraform"
   }
 }
