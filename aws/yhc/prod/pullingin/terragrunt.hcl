@@ -14,6 +14,7 @@ terraform {
       "-var", "sg_remote_backend_bucket_key=tfstate/yhc/prod/network/ap-northeast-2/sg/terraform.tfstate",
       "-var", "vpc_remote_backend_bucket_key=tfstate/yhc/prod/network/ap-northeast-2/vpc/terraform.tfstate",
       "-var", "pullingin_domain_remote_backend_bucket_key=tfstate/yhc/prod/global/ap-northeast-2/route53/terraform.tfstate",
+      "-var", "pullingin_image_s3_remote_backend_bucket_key=tfstate/yhc/prod/pullingin/ap-northeast-2/s3/terraform.tfstate",
 #       "-var", "org_prefix_list_remote_backend_bucket_key=tfstate/Management/mgmt/network/ap-northeast-2/prefix_list/terraform.tfstate",
       "-var", "remote_backend_bucket=yhc-global-tf-state",
       "-var", "remote_backend_bucket_region=ap-northeast-2",

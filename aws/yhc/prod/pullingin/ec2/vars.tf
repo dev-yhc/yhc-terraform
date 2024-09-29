@@ -33,6 +33,11 @@ variable "sg_remote_backend_bucket_key" {
 variable "pullingin_domain_remote_backend_bucket_key" {
   description = "pullingin_domain_remote_backend_bucket_key"
 }
+
+variable "pullingin_image_s3_remote_backend_bucket_key" {
+  description = "pullingin_image_s3_remote_backend_bucket_key"
+}
+
 # variable "org_prefix_list_remote_backend_bucket_key" {
 #   description = "org_prefix_list_remote_backend_bucket_key"
 # }

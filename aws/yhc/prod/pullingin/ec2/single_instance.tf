@@ -12,7 +12,8 @@ module "single_instance" {
 
   # CodeDeploy 정책 연결
   iam_role_policies = {
-    AmazonEC2RoleforAWSCodeDeploy = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
+    AmazonEC2RoleforAWSCodeDeploy = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy",
+    PullinginImageS3Access = aws_iam_policy.pullingin_image_s3_access.arn
   }
 
   user_data = <<-EOF
@@ -95,6 +96,29 @@ resource "aws_route53_record" "api-pulling-in" {
   type = "A"
   zone_id = data.terraform_remote_state.pullingin_domain.outputs.zone_id
   ttl = 300
-  // FIXME
   records = [module.single_instance.public_ip]
+}
+
+resource "aws_iam_policy" "pullingin_image_s3_access" {
+  name        = "PullinginImageS3Access"
+  path        = "/"
+  description = "IAM policy for accessing specific S3 bucket"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:PutObject"
+        ]
+        Resource = [
+          data.terraform_remote_state.pullingin_image_s3.outputs.arn,
+          "${data.terraform_remote_state.pullingin_image_s3.outputs.arn}/*"
+        ]
+      }
+    ]
+  })
 }
